@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "dragon_inn_cobblemon",
+  "version": "${version}",
+  "name": "Dragon Inn Cobblemon",
+  "description": "A mod for the Dragon Inn Cobblemon Server",
+  "authors": [
+    "LunaPrime"
+  ],
+  "license": "MIT License",
+  "icon": "assets/dragoninncobblemon/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.lunaprime.dragoninncobblemon.DragonInnCobblemonMod"
+    ],
+    "fabric-datagen": [
+      "io.github.lunaprime.dragoninncobblemon.DragonInnCobblemonMod"
+    ],
+    "client": [
+      "io.github.lunaprime.dragoninncobblemon.DragonInnCobblemonClient"
+    ]
+  },
+  "depends": {
+    "minecraft": "1.21.1",
+    "cobblemon": ">=1.6.0"
+  }
+
+}

@@ -1,6 +1,7 @@
 package io.github.lunaprime.dragoninncobblemon;
 
 
+import io.github.lunaprime.dragoninncobblemon.config.ConfigReader;
 import io.github.lunaprime.dragoninncobblemon.entity.ModEntities;
 import io.github.lunaprime.dragoninncobblemon.entity.custom.Wormhole;
 import io.github.lunaprime.dragoninncobblemon.entity.custom.WormholeStatic;
@@ -22,6 +23,7 @@ public class DragonInnCobblemonMod implements ModInitializer {
 
         ModEntities.registerModEntities();
         ModEvents.registerModEvents();
+        ConfigReader.registerConfigReader();
 
         FabricDefaultAttributeRegistry.register(ModEntities.WORMHOLE, Wormhole.createAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.WORMHOLE_STATIC, WormholeStatic.createAttributes());

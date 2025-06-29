@@ -1,5 +1,6 @@
 package io.github.lunaprime.dragoninncobblemon.entity.custom;
 
+import io.github.lunaprime.dragoninncobblemon.config.ConfigReader;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 public class Wormhole extends AnimalEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private int lifespan = 2400; //At 20TPS, this equals two minutes
+    private int lifespan = ConfigReader.wormholeDespawnTicks; //Grabs a value set in the configuration file
     private int age = 0;
 
     public Wormhole(EntityType<? extends AnimalEntity> entityType, World world) {

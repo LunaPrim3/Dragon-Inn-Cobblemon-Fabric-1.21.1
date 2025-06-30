@@ -17,13 +17,23 @@ import org.jetbrains.annotations.Nullable;
 public class Wormhole extends AnimalEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private int lifespan = ConfigReader.wormholeDespawnTicks; //Grabs a value set in the configuration file
+    private int lifespan = wormholeTicks();
     private int age = 0;
 
     public Wormhole(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
-        this.setInvulnerable(true);
-        this.noClip = true;
+        this.setInvulnerable(true); //Not sure if this does anything, as players can still hit the entity
+        this.noClip = true; //This disables collision, but not interactability.
+    }
+
+    //Grabs the despawn ticks value from a class that reads a config file, and if empty sets it to 7200 as a default.
+    private static int wormholeTicks(){
+        int ticks = Integer.parseInt(ConfigReader.configHashMap.get("WormholeDespawnTicks"));
+        if (ticks == 0){
+            ticks = 7200;
+        }
+
+        return ticks;
     }
 
     /*@Override
@@ -66,15 +76,8 @@ public class Wormhole extends AnimalEntity {
             this.setupAnimationStates();
         }
         if(age > lifespan){
-            this.discard();
+            this.discard(); //If the age (which goes up every tick) is longer than the set lifespan, it despawns the entity.
         }
-    }
-
-    public void stopMovement() {
-        this.getNavigation().stop();
-        this.setSidewaysSpeed(0.0F);
-        this.setUpwardSpeed(0.0F);
-        this.setMovementSpeed(0.0F);
     }
 
     @Override

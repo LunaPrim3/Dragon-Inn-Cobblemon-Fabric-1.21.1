@@ -1,5 +1,6 @@
 package io.github.lunaprime.dragoninncobblemon.entity.custom;
 
+import io.github.lunaprime.dragoninncobblemon.config.ConfigReader;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -19,6 +20,9 @@ public class WormholeStatic extends AnimalEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     private int age = 0;
+    private double staticX = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionX"));
+    private double staticY = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionY"));
+    private double staticZ = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionZ"));
 
     public WormholeStatic(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -65,14 +69,7 @@ public class WormholeStatic extends AnimalEntity {
         if(this.getWorld().isClient()){
             this.setupAnimationStates();
         }
-        this.setPos(-144.5,74,-41.5);
-    }
-
-    public void stopMovement() {
-        this.getNavigation().stop();
-        this.setSidewaysSpeed(0.0F);
-        this.setUpwardSpeed(0.0F);
-        this.setMovementSpeed(0.0F);
+        this.setPos(staticX,staticY,staticZ);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class WormholeSpawn {
             Wormhole wormhole = new Wormhole(ModEntities.WORMHOLE, serverWorld);
             wormhole.refreshPositionAndAngles(x, y, z, 0F, 0F);
             serverWorld.spawnEntity(wormhole);
-            DragonInnCobblemonMod.LOGGER.info("Spawning Entity");
+            //DragonInnCobblemonMod.LOGGER.info("Spawning Entity");
             String message = "A wormhole has opened near " + player.getNameForScoreboard() + "!";
             playerManager.broadcast(Text.literal(message).formatted(Formatting.DARK_PURPLE), false);
             for (ServerPlayerEntity serverPlayerEntity : playerManager.getPlayerList()){

@@ -45,7 +45,7 @@ public class ModEvents {
         DragonInnCobblemonMod.LOGGER.info("Registering mod events for {}.", DragonInnCobblemonMod.MOD_ID);
 
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
-            DragonInnCobblemonMod.LOGGER.info("{}", entity.getName().getString());
+            //DragonInnCobblemonMod.LOGGER.info("{}", entity.getName().getString());
             WormholeTeleport.Teleport(player, world, hand, entity);
             return ActionResult.PASS;
         }));

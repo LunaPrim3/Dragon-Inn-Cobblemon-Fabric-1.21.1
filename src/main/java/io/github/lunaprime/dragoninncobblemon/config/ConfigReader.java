@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ConfigReader {
 
-    public static int wormholeDespawnTicks = WormholeDespawnTicks();
+    public static HashMap<String, String> configHashMap = getConfigHashMap(); //Initializes a public hashmap containing the config settings
     private static Path configDirectory(){
         return FabricLoader.getInstance().getConfigDir();
     }
@@ -24,7 +24,7 @@ public class ConfigReader {
                 DragonInnCobblemonMod.LOGGER.info("Creating new configuration file for " + DragonInnCobblemonMod.MOD_ID);
             } else{
                 DragonInnCobblemonMod.LOGGER.info("Dragon Inn Cobblemon configuration file already exists, skipping step");
-                DragonInnCobblemonMod.LOGGER.info("Dragon Inn Cobblemon: Wormhole Despawn Ticks: {}", wormholeDespawnTicks);
+                //DragonInnCobblemonMod.LOGGER.info("Dragon Inn Cobblemon: Wormhole Despawn Ticks: {}", );
             }
         }
         catch (IOException e){
@@ -36,20 +36,21 @@ public class ConfigReader {
 
 
 
-    public static int WormholeDespawnTicks(){ //Reads the configuration file and returns the integer value set
-        int ticks = 7200; //2400 ticks is roughly 2 minutes, defaults to 6 mins if nothing is read.
+    public static HashMap<String, String> getConfigHashMap(){ //Reads the configuration file and returns the integer value set
+        HashMap<String, String> configHashMap = new HashMap<>();
         File config = new File(configDirectory() + "\\dragoninncobblemon.json");
         try(Scanner readConfig = new Scanner(config)){
             while ((readConfig.hasNextLine())){
-                String[] keyValuePair = readConfig.nextLine().split(",",2);
-                ticks = Integer.parseInt(keyValuePair[1]);
+                String[] keyValuePair = readConfig.nextLine().split(":",2);
+                configHashMap.put(keyValuePair[0], keyValuePair[1]);
+                DragonInnCobblemonMod.LOGGER.info("ConfigReader: {}: {}", keyValuePair[0], keyValuePair[1]);
             }
         }
         catch (Exception e ){
             DragonInnCobblemonMod.LOGGER.info("An error occurred while attempting to read the Dragon Inn Cobblemon configuration file: "+ e);
         }
 
-        return ticks;
+        return configHashMap;
     }
 
 

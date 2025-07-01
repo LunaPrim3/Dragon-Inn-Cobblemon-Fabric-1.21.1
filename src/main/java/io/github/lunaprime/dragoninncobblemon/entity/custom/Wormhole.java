@@ -1,6 +1,8 @@
 package io.github.lunaprime.dragoninncobblemon.entity.custom;
 
 import io.github.lunaprime.dragoninncobblemon.config.ConfigReader;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -17,8 +19,9 @@ import org.jetbrains.annotations.Nullable;
 public class Wormhole extends AnimalEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private int lifespan = wormholeTicks();
+    private final double lifespan = wormholeTicks();
     private int age = 0;
+    private static double ticks = 7200;
 
     public Wormhole(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -27,8 +30,10 @@ public class Wormhole extends AnimalEntity {
     }
 
     //Grabs the despawn ticks value from a class that reads a config file, and if empty sets it to 7200 as a default.
-    private static int wormholeTicks(){
-        int ticks = Integer.parseInt(ConfigReader.configHashMap.get("WormholeDespawnTicks"));
+    private static double wormholeTicks(){
+        if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)){
+            ticks = ConfigReader.configHashMap.get("WormholeDespawnTicks");
+        }
         if (ticks == 0){
             ticks = 7200;
         }

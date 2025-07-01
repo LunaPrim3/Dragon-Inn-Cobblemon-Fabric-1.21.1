@@ -1,6 +1,9 @@
 package io.github.lunaprime.dragoninncobblemon.entity.custom;
 
+import io.github.lunaprime.dragoninncobblemon.DragonInnCobblemonMod;
 import io.github.lunaprime.dragoninncobblemon.config.ConfigReader;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -20,14 +23,22 @@ public class WormholeStatic extends AnimalEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     private int age = 0;
-    private double staticX = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionX"));
-    private double staticY = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionY"));
-    private double staticZ = Double.parseDouble(ConfigReader.configHashMap.get("WormholeStaticPositionZ"));
+    private static double staticX = 0;
+    private static double staticY = 120;
+    private static double staticZ = 0;
 
     public WormholeStatic(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
         this.setInvulnerable(true);
         this.noClip = true;
+    }
+    private static void configReadPosition(){
+        if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)){
+            DragonInnCobblemonMod.LOGGER.info("Reading config for Wormhole Position -------------------------------");
+            staticX = ConfigReader.configHashMap.get("WormholeStaticPositionX");
+            staticY = ConfigReader.configHashMap.get("WormholeStaticPositionY");
+            staticZ = ConfigReader.configHashMap.get("WormholeStaticPositionZ");
+        }
     }
 
     /*@Override
@@ -69,7 +80,9 @@ public class WormholeStatic extends AnimalEntity {
         if(this.getWorld().isClient()){
             this.setupAnimationStates();
         }
-        this.setPos(staticX,staticY,staticZ);
+        else {
+            this.setPos(staticX,staticY,staticZ);
+        }
     }
 
     @Override
